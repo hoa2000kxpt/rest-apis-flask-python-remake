@@ -7,11 +7,14 @@ stores = [{
     'items': [{'name':'my item', 'price': 15.99 }]
 }]
 
+# POST - used to receive data
+# GET - used to send data back only
+
 @app.route('/')
 def home():
   return render_template('index.html')
 
-#post /store data: {name :}
+#POST /store data: {name :}
 @app.route('/store' , methods=['POST'])
 def create_store():
   request_data = request.get_json()
@@ -23,22 +26,26 @@ def create_store():
   return jsonify(new_store)
   #pass
 
-#get /store/<name> data: {name :}
+#GET /store/<name> data: {name :}
 @app.route('/store/<string:name>')
 def get_store(name):
+  # Iterate over stores
   for store in stores:
+
+    # If the store name matches, return it
     if store['name'] == name:
           return jsonify(store)
-  return jsonify ({'message': 'store not found'})
-  #pass
 
-#get /store
+  # If none match, return an error message
+  return jsonify ({'message': 'store not found'})
+
+#GET /store
 @app.route('/store')
 def get_stores():
   return jsonify({'stores': stores})
   #pass
 
-#post /store/<name> data: {name :}
+#POST /store/<name> data: {name :}
 @app.route('/store/<string:name>/item' , methods=['POST'])
 def create_item_in_store(name):
   request_data = request.get_json()
@@ -53,7 +60,7 @@ def create_item_in_store(name):
   return jsonify ({'message' :'store not found'})
   #pass
 
-#get /store/<name>/item data: {name :}
+#GET /store/<name>/item data: {name :}
 @app.route('/store/<string:name>/item')
 def get_item_in_store(name):
   for store in stores:
