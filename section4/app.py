@@ -2,6 +2,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required, current_identity
 
+# From security.py import 2 functions authenticate() and identity()
 from security import authenticate, identity
 
 app = Flask(__name__)
@@ -9,7 +10,7 @@ app.config['PROPAGATE_EXCEPTIONS'] = True # To allow flask propagating exception
 app.secret_key = 'jose'
 api = Api(app)
 
-jwt = JWT(app, authenticate, identity)
+jwt = JWT(app, authenticate, identity) # /auth
 
 items = []
 
