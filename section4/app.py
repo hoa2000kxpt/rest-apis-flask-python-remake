@@ -23,6 +23,8 @@ class Item(Resource):
 
     @jwt_required()
     def get(self, name):
+		
+		# If there is no more item, return None
         return {'item': next(filter(lambda x: x['name'] == name, items), None)}
 
     def post(self, name):
