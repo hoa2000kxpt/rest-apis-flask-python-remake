@@ -1,3 +1,8 @@
+"""
+REFERENCES:
+1. https://flask-restful.readthedocs.io/en/latest/reqparse.html
+"""
+
 import sqlite3
 from flask_restful import Resource, reqparse
 
@@ -61,6 +66,7 @@ class UserRegister(Resource):
     def post(self):
         data = UserRegister.parser.parse_args()
 
+        # Check a user exists already or not
         if User.find_by_username(data['username']):
             return {"message": "User with that username already exists."}, 400
 
