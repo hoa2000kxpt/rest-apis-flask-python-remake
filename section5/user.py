@@ -17,7 +17,7 @@ class User():
 
         query = "SELECT * FROM {table} WHERE username=?".format(table=cls.TABLE_NAME)
         result = cursor.execute(query, (username,))
-        row = result.fetchone()
+        row = result.fetchone() # Get the first row out of the result set
         if row:
             user = cls(*row)
         else:
